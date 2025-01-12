@@ -220,12 +220,6 @@ body {
                         box-shadow: 0 0.65vh 0.85vh rgba(0, 0, 0, 0.15); /* Augmente légèrement l'ombre externe au survol */
                     }
                 }
-    
-                .set_pages {
-                    .bouton {
-                        margin-bottom: 2vh;
-                    }
-                }
             }
         }
     }
