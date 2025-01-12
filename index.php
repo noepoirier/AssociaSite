@@ -23,7 +23,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <meta charset="UTF-8">
         <title><?php echo $page_name ?></title>
         <link rel="shortcut icon" type="image/x-icon" href="<?php echo $logo ?>">
-        <link href="style.css" rel="stylesheet"/>
+        <link href="style.php?association_id=0" rel="stylesheet"/>
     </head>
     <body>
         <div class="menu_site"><?php echo $menu_site ?></div>

@@ -141,7 +141,7 @@ include(\'menu.php\');
         <meta charset="UTF-8">
         <title><?php echo $association_name ?></title>
         <link rel="shortcut icon" type="image/x-icon" href="<?php echo $logo ?>">
-        <link href="../../style.css?association_id=<?php echo $association_id ?>" rel="stylesheet" type="text/css"/>
+        <link href="../../style.php?association_id=<?php echo $association_id ?>" rel="stylesheet" type="text/css"/>
     </head>
     <body>
         <div class="menu_site"><?php echo $menu_site ?></div>
@@ -179,7 +179,7 @@ include(\'menu.php\');
         <meta charset="UTF-8">
         <title><?php echo $association_name ?></title>
         <link rel="shortcut icon" type="image/x-icon" href="<?php echo $logo ?>">
-        <link href="../../style.css?association_id=<?php echo $association_id ?>" rel="stylesheet" type="text/css"/>
+        <link href="../../style.php?association_id=<?php echo $association_id ?>" rel="stylesheet" type="text/css"/>
     </head>
     <body>
         <div class="menu_site"><?php echo $menu_site ?></div>
