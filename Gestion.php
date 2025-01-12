@@ -2,16 +2,22 @@
 include('menu.php');
 include('db_config.php');
 
-if (isset($_GET['association_id'])) {
-    $association_id = $_GET['association_id'];
-    $_SESSION['association_id'] = $association_id;
-} else {
+if (!isset($_SESSION['association_id'])) {
     header("Location: Connexion.php?error=not_logged_in");
     exit;
 }
 
+session_regenerate_id(true);
+
+$association_id = filter_input(INPUT_GET, 'association_id', FILTER_VALIDATE_INT);
+
+if (!$association_id || $_SESSION['association_id'] !== $association_id) {
+    header("Location: Gestion.php?association_id=" . intval($_SESSION['association_id']));
+    exit;
+}
+
 $stmt_get_name = $connection->prepare("SELECT association_name, logo_url FROM Associations WHERE association_id = ?");
-$stmt_get_name->bind_param("i", $association_id);
+$stmt_get_name->bind_param("i", $_SESSION['association_id']);
 $stmt_get_name->execute();
 $result = $stmt_get_name->get_result();
 $row = $result->fetch_assoc();
@@ -57,8 +63,6 @@ $couleurs = array(
     <body>
         <div class="menu_site"><?php echo $menu_site ?></div>
 
-        <div style="margin-bottom: 20px;"></div>
-
         <div class="gestion_name">
             <?php if (!empty($logo_url)) : ?>
                 <img class="logo" src="<?php echo $logo_url; ?>">
@@ -66,74 +70,61 @@ $couleurs = array(
             <h1><?php echo $association_name ?></h1>
         </div>
 
-        <div style="margin-bottom: 25px;"></div>
-
         <center><h2>Gérez votre site</h2></center>
-
-        <div style="margin-bottom: 50px;"></div>
 
         <div class="separation_rectangle"></div>
 
-        <div style="margin-bottom: 50px;"></div>
-
         <div class="content_rectangle">
             <div class="content">
-                <center>
-                    <div class="formulaire">
-                        <form action="template_page.php" method="post" enctype="multipart/form-data">
-                            <h2 style="margin-bottom: 50px">Configuration du site</h2>
-                            <div class="add_items">
-                                <div>
-                                    <h3>Ajouter un logo</h3>
-                                    <h4>
-                                        <label for="association_logo" class=logo_upload>Choisir un fichier</label>
-                                        <input type="file" id="association_logo" name="association_logo" accept="image/*"><br>
-                                    </h4>
-                                </div>
-                                <div>
-                                    <h3>Ajouter un slogan</h3>
-                                    <h4>
-                                        <label for="association_slogan">Slogan :</label>
-                                        <input type="text" id="association_slogan" name="association_slogan"><br>
-                                    </h4>
-                                </div>
-                            </div>
-
-                            <div style="margin-bottom: 75px;"></div>
-
-                            <h3>Configurer les couleurs</h3>
+                <h2>Configuration du site</h2>
+                <div class="formulaire">
+                    <form class="gestion_form" action="template_page.php" method="post" enctype="multipart/form-data">
+                        <div class="set_logo">
+                            <h3>Ajouter un logo</h3>
                             <h4>
-                                <div class="color_select">
-                                    <div>
-                                        <label for="site_color">Couleur du site :</label>
-                                        <select name="site_color" style="margin-right: 10%">
-                                            <?php foreach ($couleurs as $color => $name) : ?>
-                                                <option value="<?php echo $color; ?>"><?php echo ucfirst($name); ?></option>
-                                            <?php endforeach; ?>
-                                        </select>
-                                    </div>
-                                    <div>
-                                        <label for="bg_color">Couleur de fond :</label>
-                                        <select name="bg_color">
-                                            <?php foreach ($couleurs as $color => $name) : ?>
-                                                <option value="<?php echo $color; ?>"><?php echo ucfirst($name); ?></option>
-                                            <?php endforeach; ?>
-                                        </select>
-                                    </div>
+                                <label for="association_logo" class="logo_upload">Choisir un fichier</label>
+                                <input type="file" id="association_logo" name="association_logo" accept="image/*"><br>
+                            </h4>
+                        </div>
+                        <div class="set_slogan">
+                            <h3>Ajouter un slogan</h3>
+                            <h4>
+                                <label for="association_slogan">Slogan :</label>
+                                <input type="text" id="association_slogan" name="association_slogan">
+                            </h4>
+                        </div>
+
+                        <div class="set_color">
+                            <h4>
+                                <h3>Configurer les couleurs</h3>
+                                <div>
+                                    <label for="site_color">Couleur du site :</label>
+                                    <select name="site_color" style="margin-bottom: 1.5vh;">
+                                        <?php foreach ($couleurs as $color => $name) : ?>
+                                            <option value="<?php echo $color; ?>"><?php echo ucfirst($name); ?></option>
+                                        <?php endforeach; ?>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label for="bg_color">Couleur de fond :</label>
+                                    <select name="bg_color">
+                                        <?php foreach ($couleurs as $color => $name) : ?>
+                                            <option value="<?php echo $color; ?>"><?php echo ucfirst($name); ?></option>
+                                        <?php endforeach; ?>
+                                    </select>
                                 </div>
                             </h4>
-
-                            <div style="margin-bottom: 75px;"></div>
-
+                        </div>
+                        <div class="set_pages">
                             <h3>Ajouter une page</h3>
                             <h4>
                                 <label for="new_page_name">Nom de la page :</label>
                                 <input type="text" id="new_page_name" name="new_page_name"><br>
                             </h4>
-                            <input class="bouton" type="submit" value="Appliquer les changements">
-                        </form>
-                    </div>
-                </center>
+                        </div>
+                    </form>
+                </div>
+                <input class="bouton" type="submit" value="Appliquer les changements">
             </div>
         </div>
     </body>

@@ -2,7 +2,9 @@
 include('db_config.php');
 
 session_start();
+
 $association_id = $_SESSION['association_id'];
+
 if (isset($_FILES["association_logo"]) && $_FILES["association_logo"]["error"] != UPLOAD_ERR_NO_FILE) {
     $target_dir = "Associations/$association_id/";
     $target_file = $target_dir . basename($_FILES["association_logo"]["name"]);
@@ -132,47 +134,38 @@ if ($page_count > 0) {
         function get_template_page($new_page_order)
         {
             $template = '<?php
-    include(\'menu.php\');
-    $page_order = 0;
-    ?>
+include(\'menu.php\');
+$page_order = 0;
+?>
 
-    <!DOCTYPE html>
-    <html>
-        <head>
-            <meta charset="UTF-8">
-            <title><?php echo $association_name ?></title>
-            <link rel="shortcut icon" type="image/x-icon" href="<?php echo $logo ?>">
-            <link href="../style.php?association_id=<?php echo $association_id ?>" rel="stylesheet" type="text/css"/>
-        </head>
-        <body>
-            <div class="menu_site"><?php echo $menu_site ?></div>
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title><?php echo $association_name ?></title>
+        <link rel="shortcut icon" type="image/x-icon" href="<?php echo $logo ?>">
+        <link href="../../style.css?association_id=<?php echo $association_id ?>" rel="stylesheet" type="text/css"/>
+    </head>
+    <body>
+        <div class="menu_site"><?php echo $menu_site ?></div>
 
-            <div style="margin-bottom: 20px;"></div>
+        <div class="name_rectangle">
+            <?php if (!empty($logo_url)) : ?>
+                <img src="<?php echo $logo_url; ?>">
+            <?php endif; ?>
+            <h1><?php echo $page_name[$page_order] ?></h1>
+        </div>
 
-            <div class="page_name_rectangle">
-                <?php if (!empty($logo_url)) : ?>
-                    <img src="<?php echo $logo_url; ?>">
-                <?php endif; ?>
-                <h1><?php echo $page_name[$page_order] ?></h1>
+        <center><h2><?php echo $slogan ?></h2></center>
+
+        <div class="separation_rectangle"></div>
+
+        <div class="content_rectangle">
+            <div class="content">
             </div>
-
-            <div style="margin-bottom: 25px;"></div>
-
-            <center><h2><?php echo $slogan ?></h2></center>
-
-            <div style="margin-bottom: 50px;"></div>
-
-            <div class="separation_rectangle"></div>
-
-            <div style="margin-bottom: 50px;"></div>
-
-            <div class="content_rectangle">
-                <div class="content">
-                </div>
-            </div>
-        </body>
-    </html>';
-
+        </div>
+    </body>
+</html>';
             return $template;
         }
 

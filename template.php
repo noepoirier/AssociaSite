@@ -40,7 +40,7 @@ file_put_contents($file_path . $file_name, $template_content);
 function get_template_menu($association_id)
 {
     $template = '<?php
-include(\'../db_config.php\');
+include(\'../../db_config.php\');
 
 $association_id = ' . $association_id . ';
 
@@ -67,7 +67,7 @@ $currentPage = basename($_SERVER[\'PHP_SELF\']);
 $menu_site = "<ul>";
 // Vérifier si l\'URL du logo est vide
 if (!empty($logo)) {
-    $menu_site .= "<li><img src=\'$logo\' width=\'50\' border-radius=\'45px\'></li>";
+    $menu_site .= "<li><img src=\'$logo\' width=\'50\' border-radius=\'4.5vh\'></li>";
 }
 $menu_site .= "<li><a href=\"index.php\"" . ($currentPage === "index.php" ? \' class="active"\' : \'\') . ">Accueil</a></li>";
 $menu_site .= "<li><a href=\"donation.php\"" . ($currentPage === "donation.php" ? \' class="active"\' : \'\') . ">Donation</a></li>";
@@ -125,7 +125,6 @@ if (!empty($page_names)) {
 
 $menu_site .= "</ul>";
 ?>';
-
     return $template;
 }
 
@@ -142,34 +141,21 @@ include(\'menu.php\');
         <meta charset="UTF-8">
         <title><?php echo $association_name ?></title>
         <link rel="shortcut icon" type="image/x-icon" href="<?php echo $logo ?>">
-        <link href="../style.php?association_id=<?php echo $association_id ?>" rel="stylesheet" type="text/css"/>
+        <link href="../../style.css?association_id=<?php echo $association_id ?>" rel="stylesheet" type="text/css"/>
     </head>
     <body>
         <div class="menu_site"><?php echo $menu_site ?></div>
 
-        <div style="margin-bottom: 20px;"></div>
-        
-        <center>
+        <div class="name_rectangle">
             <?php if (!empty($logo)) : ?>
                 <img class="logo" src="<?php echo $logo; ?>">
             <?php endif; ?>
-        </center>
-
-        <div style="margin-bottom: 30px;"></div>
-
-        <div class="name_rectangle">
             <h1><?php echo $association_name ?></h1>
         </div>
 
-        <div style="margin-bottom: 25px;"></div>
-
         <center><h2><?php echo $slogan ?></h2></center>
 
-        <div style="margin-bottom: 50px;"></div>
-
         <div class="separation_rectangle"></div>
-
-        <div style="margin-bottom: 50px;"></div>
 
         <div class="content_rectangle">
             <div class="content">
@@ -177,7 +163,6 @@ include(\'menu.php\');
         </div>
     </body>
 </html>';
-
     return $template;
 }
 
@@ -194,45 +179,29 @@ include(\'menu.php\');
         <meta charset="UTF-8">
         <title><?php echo $association_name ?></title>
         <link rel="shortcut icon" type="image/x-icon" href="<?php echo $logo ?>">
-        <link href="../style.php?association_id=<?php echo $association_id ?>" rel="stylesheet" type="text/css"/>
+        <link href="../../style.css?association_id=<?php echo $association_id ?>" rel="stylesheet" type="text/css"/>
     </head>
     <body>
         <div class="menu_site"><?php echo $menu_site ?></div>
 
-        <div style="margin-bottom: 20px;"></div>
-        
-        <center>
+        <div class="name_rectangle">
             <?php if (!empty($logo)) : ?>
                 <img class="logo" src="<?php echo $logo; ?>">
             <?php endif; ?>
-        </center>
-
-        <div style="margin-bottom: 30px;"></div>
-
-        <div class="page_name_rectangle">
             <h1>Donation</h1>
         </div>
 
-        <div style="margin-bottom: 25px;"></div>
-
         <center><h2>Effectuer un don</h2></center>
-
-        <div style="margin-bottom: 50px;"></div>
 
         <div class="separation_rectangle"></div>
 
-        <div style="margin-bottom: 50px;"></div>
-
         <div class="content_rectangle">
             <div class="content">
-                <center>
-                    <iframe id="haWidget" allowtransparency="true" scrolling="auto" src="<?php echo $donation_link ?>" style="width: 100%; height: 750px; border: none;"></iframe>
-                </center>
+                <iframe id="haWidget" allowtransparency="true" scrolling="auto" src="<?php echo $donation_link ?>" style="width: 100%; height: 75vh; border: none;"></iframe>
             </div>
         </div>
     </body>
 </html>';
-
     return $template;
 }
 

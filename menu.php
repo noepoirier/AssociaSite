@@ -1,6 +1,14 @@
 <?php
 include('db_config.php');
 
+session_start();
+
+if (isset($_SESSION['LAST_ACTIVITY']) && (time() - $_SESSION['LAST_ACTIVITY'] > 1800)) {
+    session_unset(); // Détruit les données de session
+    session_destroy(); // Détruit la session elle-même
+}
+$_SESSION['LAST_ACTIVITY'] = time();
+
 $page_name = "AssociaSite";
 $logo = "AssociaSite.jpg";
 
@@ -15,15 +23,15 @@ $currentPage = basename($_SERVER['PHP_SELF']);
 
 // Crée le menu de navigation
 $menu_site = "<ul>";
-$menu_site .= "<li><img src='AssociaSite.jpg' width='50' border-radius='45px'></li>";
+$menu_site .= "<li><img src='AssociaSite.jpg' width='50' border-radius='4.5vh'></li>";
 $menu_site .= "<li><a href=\"index.php\"" . ($currentPage === 'index.php' ? ' class="active"' : '') . ">Accueil</a></li>";
 foreach ($page_associasite as $page) {
     $menu_site .= "<li><a href=\"{$page}.php\"" . ($currentPage === "{$page}.php" ? ' class="active"' : '') . ">{$page}</a></li>";
 }
 
 // Vérifie si l'ID de l'association est défini dans la session ou l'URL
-if (isset($_GET['association_id'])) {
-    $association_id = $_GET['association_id'];
+if (isset($_SESSION['association_id'])) {
+    $association_id = $_SESSION['association_id'];
 
     $menu_site .= "<div class=separation_menu></div>";
     $menu_site .= "<li><a href=\"Associations/{$association_id}/index.php\"" . ($currentPage === "Associations/{$association_id}/index.php" ? ' class="active"' : '') . ">Accueil</a></li>";
@@ -46,7 +54,6 @@ if (isset($_GET['association_id'])) {
         $menu_site .= "<li><a href=\"Associations/{$association_id}/{$page}.php\"" . ($currentPage === "Associations/{$association_id}/{$page_site}.php" ? ' class="active"' : '') . ">{$page_site}</a></li>";
     }
     
-    session_start();
     $_SESSION['pages_site'] = $pages_site;
 }
 
