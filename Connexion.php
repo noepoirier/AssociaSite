@@ -43,17 +43,17 @@ if (isset($_GET['error']) && $_GET['error'] == 'not_logged_in') {
 <html>
     <head>
         <meta charset="UTF-8">
-        <title><?php echo $page_name ?></title>
-        <link rel="shortcut icon" type="image/x-icon" href="<?php echo $logo ?>">
+        <title><?php echo $page_name; ?></title>
+        <link rel="shortcut icon" type="image/x-icon" href="<?php echo $logo; ?>">
         <link href="style.php?association_id=0" rel="stylesheet"/>
     </head>
     <body>
-        <div class="menu_site"><?php echo $menu_site ?></div>
+        <div class="menu_site"><?php echo $menu_site; ?></div>
         
-        <center><img class="logo" src="<?php echo $logo ?>"></center>
+        <center><img class="logo" src="<?php echo $logo; ?>"></center>
 
         <div class="name_rectangle">
-            <h1><?php echo $page_name ?></h1>
+            <h1><?php echo $page_name; ?></h1>
         </div>
 
         <center><h2>Connectez-vous afin de gérer le site de votre association</h2></center>

@@ -51,23 +51,23 @@ $couleurs = array(
 <html>
     <head>
         <meta charset="UTF-8">
-        <title><?php echo $page_name ?></title>
-        <link rel="shortcut icon" type="image/x-icon" href="<?php echo $logo ?>">
+        <title><?php echo $page_name; ?></title>
+        <link rel="shortcut icon" type="image/x-icon" href="<?php echo $logo; ?>">
         <link href="style.php?association_id=0" rel="stylesheet"/>
         <script>
-            <?php if(isset($_SESSION['alert'])): ?>
+            <?php if (isset($_SESSION['alert'])) : ?>
                 alert("<?php echo $_SESSION['alert']; ?>");
             <?php endif; ?>
         </script>
     </head>
     <body>
-        <div class="menu_site"><?php echo $menu_site ?></div>
+        <div class="menu_site"><?php echo $menu_site; ?></div>
 
         <div class="gestion_name">
             <?php if (!empty($logo_url)) : ?>
                 <img class="logo" src="<?php echo $logo_url; ?>">
             <?php endif; ?>
-            <h1><?php echo $association_name ?></h1>
+            <h1><?php echo $association_name; ?></h1>
         </div>
 
         <center><h2>Gérez votre site</h2></center>
